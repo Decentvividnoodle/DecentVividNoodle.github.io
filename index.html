@@ -1,207 +1,256 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Portfolio</title>
+  <title>Aadarshan Rana — Portfolio</title>
+  <meta name="description" content="Personal portfolio of Aadarshan Rana — learning programming and building projects.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --bg: #fffdfb;
+      --text: #17191f;
+      --muted: #686b74;
+      --cyan: #B0F5FD;
+      --blue: #AEBFF4;
+      --pink: #F8BABA;
+      --peach: #FFC987;
+      --line: #ececf0;
+      --surface: #ffffff;
+      --radius: 22px;
+      --max: 1080px;
     }
 
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      background: #0d1117;
-      color: #f0f6fc;
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Poppins", sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
     }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(var(--max), calc(100% - 44px)); margin-inline: auto; }
 
-    header {
-      padding: 25px 8%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #222;
+    /* Navigation */
+    .nav-wrap { position: sticky; top: 0; z-index: 20; background: rgba(255,253,251,.88); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(236,236,240,.8); }
+    nav { height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { font-size: 15px; font-weight: 700; letter-spacing: -.4px; }
+    .brand-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--blue); margin-left: 4px; }
+    .nav-links { display: flex; gap: 27px; align-items: center; color: var(--muted); font-size: 13px; font-weight: 500; }
+    .nav-links a { transition: color .2s ease; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-contact { padding: 10px 16px; border: 1px solid var(--text); border-radius: 999px; color: var(--text) !important; }
+
+    /* Hero */
+    .hero { min-height: 610px; display: grid; align-items: center; padding: 88px 0 80px; }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 50px; align-items: center; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; font-size: 12px; color: var(--muted); font-weight: 600; letter-spacing: 1.1px; text-transform: uppercase; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #83d8b4; box-shadow: 0 0 0 4px #e6f8ef; }
+    h1 { font-size: clamp(46px, 7vw, 82px); line-height: 1.1; letter-spacing: -4px; margin: 22px 0 20px; font-weight: 800; }
+    h1 .highlight { position: relative; z-index: 0; white-space: nowrap; }
+    h1 .highlight::after { content: ""; position: absolute; z-index: -1; height: .27em; bottom: .08em; left: -.02em; right: -.04em; background: var(--cyan); border-radius: 9px; transform: rotate(-1.3deg); }
+    .hero-copy { max-width: 550px; color: var(--muted); font-size: 16px; }
+    .hero-actions { display: flex; align-items: center; gap: 13px; flex-wrap: wrap; margin-top: 30px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 999px; padding: 12px 19px; font-size: 13px; font-weight: 600; transition: transform .2s, background .2s; border: 1px solid var(--text); }
+    .button:hover { transform: translateY(-2px); }
+    .button.primary { background: var(--text); color: white; }
+    .button.secondary { background: transparent; border-color: var(--line); }
+    .hero-art { position: relative; min-height: 370px; display: grid; place-items: center; }
+    .art-card { width: min(100%, 370px); aspect-ratio: 1 / 1; border-radius: 34px; background: var(--cyan); position: relative; overflow: hidden; transform: rotate(2deg); }
+    .art-card::before { content: ""; position: absolute; width: 62%; height: 62%; border-radius: 50%; background: var(--blue); top: -12%; left: -10%; }
+    .art-card::after { content: ""; position: absolute; width: 44%; height: 44%; border-radius: 50%; background: var(--pink); right: -5%; bottom: -5%; }
+    .art-inner { position: absolute; inset: 16%; border: 1px solid rgba(23,25,31,.25); border-radius: 25px; display: grid; place-items: center; }
+    .art-symbol { font-size: clamp(75px, 10vw, 130px); font-weight: 700; letter-spacing: -12px; color: #17191f; transform: rotate(-7deg); }
+    .art-label { position: absolute; bottom: 24px; left: 25px; font-size: 12px; font-weight: 600; z-index: 2; }
+    .floating-note { position: absolute; top: 8%; right: 1%; padding: 12px 17px; background: white; border: 1px solid var(--line); border-radius: 15px; font-size: 12px; font-weight: 600; box-shadow: 0 10px 30px rgba(20,20,30,.04); transform: rotate(-3deg); }
+    .floating-note.two { left: 0; right: auto; bottom: 6%; top: auto; background: var(--peach); border: 0; transform: rotate(3deg); }
+
+    /* Sections */
+    section { padding: 90px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 25px; margin-bottom: 35px; }
+    .section-kicker { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+    h2 { margin: 8px 0 0; font-size: clamp(28px, 4vw, 42px); letter-spacing: -1.8px; line-height: 1.2; font-weight: 700; }
+    .section-intro { max-width: 470px; color: var(--muted); font-size: 14px; margin: 0; }
+    .about-grid { display: grid; grid-template-columns: .75fr 1.25fr; gap: 55px; align-items: start; }
+    .about-accent { min-height: 230px; border-radius: var(--radius); background: var(--pink); position: relative; overflow: hidden; }
+    .about-accent::before { content: ""; position: absolute; width: 170px; height: 170px; border: 1px solid rgba(23,25,31,.3); border-radius: 50%; top: 25px; left: 25px; }
+    .about-accent::after { content: ""; position: absolute; width: 90px; height: 90px; background: var(--peach); border-radius: 50%; right: 22px; bottom: 22px; }
+    .about-text { color: var(--muted); font-size: 15px; }
+    .about-text p:first-child { margin-top: 0; color: var(--text); font-size: 17px; font-weight: 500; }
+
+    /* Projects */
+    .projects { background: #faf9f7; }
+    .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .project-card { border: 1px solid var(--line); border-radius: 20px; background: var(--surface); padding: 18px; transition: transform .2s, border-color .2s; }
+    .project-card:hover { transform: translateY(-4px); border-color: #d8d8df; }
+    .project-visual { min-height: 210px; border-radius: 14px; display: grid; place-items: center; position: relative; overflow: hidden; }
+    .visual-one { background: var(--blue); }
+    .visual-two { background: var(--peach); }
+    .visual-three { background: var(--cyan); }
+    .visual-four { background: var(--pink); }
+    .visual-mark { font-size: 52px; font-weight: 700; color: rgba(23,25,31,.8); letter-spacing: -4px; }
+    .project-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 18px; }
+    .project-meta h3 { font-size: 17px; margin: 0; font-weight: 600; }
+    .project-tag { font-size: 10px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 5px 9px; white-space: nowrap; }
+    .project-card p { color: var(--muted); font-size: 13px; margin: 9px 0 0; }
+
+    /* Skills */
+    .skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 45px; align-items: start; }
+    .skills-copy { color: var(--muted); font-size: 14px; max-width: 460px; }
+    .skill-list { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skill { border: 1px solid var(--line); border-radius: 999px; padding: 10px 15px; font-size: 12px; font-weight: 500; background: white; }
+    .skill:nth-child(2) { background: var(--cyan); border-color: transparent; }
+    .skill:nth-child(4) { background: var(--pink); border-color: transparent; }
+    .skill:nth-child(6) { background: var(--peach); border-color: transparent; }
+    .skill:nth-child(8) { background: var(--blue); border-color: transparent; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--line); padding: 30px 0; }
+    .footer-row { display: flex; justify-content: space-between; align-items: center; gap: 18px; }
+    .footer-text { color: var(--muted); font-size: 12px; }
+    .footer-links { display: flex; gap: 18px; font-size: 12px; font-weight: 500; }
+    .footer-links a:hover { opacity: .6; }
+
+    /* Small entrance animation, reduced-motion friendly */
+    .reveal { animation: fade-up .7s ease both; }
+    @keyframes fade-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+    @media (max-width: 760px) {
+      nav { height: 66px; }
+      .nav-links { gap: 14px; font-size: 12px; }
+      .nav-links a:nth-child(2) { display: none; }
+      .nav-contact { padding: 8px 12px; }
+      .hero { min-height: auto; padding: 65px 0 45px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 22px; }
+      h1 { letter-spacing: -2.5px; }
+      .hero-art { min-height: 280px; }
+      .art-card { width: min(78%, 300px); }
+      section { padding: 65px 0; }
+      .section-head { align-items: start; flex-direction: column; margin-bottom: 25px; }
+      .about-grid, .skills-layout { grid-template-columns: 1fr; gap: 24px; }
+      .about-accent { min-height: 170px; }
+      .project-grid { grid-template-columns: 1fr; }
+      .project-visual { min-height: 180px; }
+      .footer-row { align-items: start; flex-direction: column; }
     }
-
-    header h2 {
-      color: #58a6ff;
-    }
-
-    nav a {
-      color: #ccc;
-      text-decoration: none;
-      margin-left: 20px;
-    }
-
-    nav a:hover {
-      color: #58a6ff;
-    }
-
-    .hero {
-      min-height: 75vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 80px 10%;
-    }
-
-    .hero p:first-child {
-      color: #58a6ff;
-    }
-
-    .hero h1 {
-      font-size: clamp(40px, 7vw, 75px);
-      margin: 15px 0;
-    }
-
-    .hero h1 span {
-      color: #58a6ff;
-    }
-
-    .hero p {
-      max-width: 600px;
-      color: #aaa;
-      font-size: 18px;
-    }
-
-    .btn {
-      display: inline-block;
-      margin-top: 25px;
-      padding: 12px 22px;
-      background: #58a6ff;
-      color: #0d1117;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      width: fit-content;
-    }
-
-    section {
-      padding: 70px 10%;
-    }
-
-    section h2 {
-      font-size: 32px;
-      margin-bottom: 25px;
-    }
-
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 12px;
-      padding: 25px;
-    }
-
-    .card h3 {
-      color: #58a6ff;
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      color: #aaa;
-    }
-
-    .skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .skills span {
-      background: #161b22;
-      border: 1px solid #30363d;
-      padding: 10px 18px;
-      border-radius: 8px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      border-top: 1px solid #222;
-      color: #888;
+    @media (max-width: 430px) {
+      .wrap { width: min(var(--max), calc(100% - 30px)); }
+      .nav-links { gap: 10px; }
+      .brand { font-size: 13px; }
+      .hero-copy { font-size: 14px; }
+      .button { padding: 11px 15px; }
+      .floating-note { right: -2%; }
     }
   </style>
 </head>
-
 <body>
-
-  <header>
-    <h2>My Portfolio</h2>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
+  <div class="nav-wrap">
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="brand" href="#home">Aadarshan<span class="brand-dot"></span></a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a class="nav-contact" href="#contact">Contact</a>
+      </div>
     </nav>
-  </header>
-
-  <div class="hero">
-    <p>HELLO, WORLD!</p>
-    <h1>I'm a <span>Developer.</span></h1>
-    <p>
-      I am learning programming and building projects.
-      Welcome to my personal portfolio where I showcase
-      my work, skills and learning journey.
-    </p>
-    <a href="#projects" class="btn">Explore My Projects</a>
   </div>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p>
-      I am a student passionate about technology, programming
-      and building useful things. I enjoy learning new skills
-      and turning ideas into projects.
-    </p>
-  </section>
-
-  <section id="projects">
-    <h2>My Projects</h2>
-
-    <div class="projects">
-      <div class="card">
-        <h3>Project One</h3>
-        <p>Add your project description here.</p>
+  <main>
+    <section class="hero wrap" id="home">
+      <div class="hero-grid">
+        <div class="reveal">
+          <div class="eyebrow"><span class="status-dot"></span> Learning • Building • Exploring</div>
+          <h1>Hi, I'm<br><span class="highlight">Aadarshan.</span></h1>
+          <p class="hero-copy">A curious learner exploring programming, technology, and creative ways to build useful things. This is where my journey and projects come together.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#projects">Explore projects <span aria-hidden="true">↗</span></a>
+            <a class="button secondary" href="#about">A little about me</a>
+          </div>
+        </div>
+        <div class="hero-art reveal" aria-label="Abstract pastel graphic">
+          <div class="art-card">
+            <div class="art-inner"><div class="art-symbol">&lt;/&gt;</div></div>
+            <div class="art-label">Curiosity in progress.</div>
+          </div>
+          <div class="floating-note">Currently learning ✦</div>
+          <div class="floating-note two">Ideas → Projects</div>
+        </div>
       </div>
+    </section>
 
-      <div class="card">
-        <h3>Project Two</h3>
-        <p>Add your project description here.</p>
+    <section class="wrap" id="about">
+      <div class="section-head">
+        <div><div class="section-kicker">01 / About</div><h2>A little about me.</h2></div>
+        <p class="section-intro">Still learning, experimenting, and figuring things out — one project at a time.</p>
       </div>
+      <div class="about-grid">
+        <div class="about-accent" aria-hidden="true"></div>
+        <div class="about-text">
+          <p>I'm interested in programming and technology, and I enjoy turning ideas into things I can actually build.</p>
+          <p>I'm currently exploring Python, C, C++, HTML, and CSS while learning how to make projects that are useful, thoughtful, and fun to use. This portfolio will grow along with my skills.</p>
+        </div>
+      </div>
+    </section>
 
-      <div class="card">
-        <h3>Project Three</h3>
-        <p>Add your project description here.</p>
+    <section class="projects" id="projects">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker">02 / Selected work</div><h2>Things I'm building.</h2></div>
+          <p class="section-intro">A small collection of projects. More will appear here as I build and learn.</p>
+        </div>
+        <div class="project-grid">
+          <article class="project-card">
+            <div class="project-visual visual-one"><div class="visual-mark">01</div></div>
+            <div class="project-meta"><h3>Project One</h3><span class="project-tag">In progress</span></div>
+            <p>A project description will go here when this project is ready to showcase.</p>
+          </article>
+          <article class="project-card">
+            <div class="project-visual visual-two"><div class="visual-mark">02</div></div>
+            <div class="project-meta"><h3>Project Two</h3><span class="project-tag">Exploring</span></div>
+            <p>Another idea I'm exploring. This card can later include a screenshot and GitHub link.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap" id="skills">
+      <div class="section-head">
+        <div><div class="section-kicker">03 / Learning</div><h2>Tools & interests.</h2></div>
+      </div>
+      <div class="skills-layout">
+        <p class="skills-copy">These are technologies and areas I'm learning or interested in. I'll update this list as I gain experience — no fake skill percentages.</p>
+        <div class="skill-list" aria-label="Skills and interests">
+          <span class="skill">Python</span>
+          <span class="skill">C</span>
+          <span class="skill">C++</span>
+          <span class="skill">HTML</span>
+          <span class="skill">CSS</span>
+          <span class="skill">Programming</span>
+          <span class="skill">AI</span>
+          <span class="skill">Building projects</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="wrap footer-row">
+      <div class="footer-text">© <span id="year"></span> Aadarshan Rana · Built while learning.</div>
+      <div class="footer-links">
+        <a href="https://github.com/decentvividnoodle" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a href="#home">Back to top ↑</a>
       </div>
     </div>
-  </section>
-
-  <section id="skills">
-    <h2>Skills</h2>
-    <div class="skills">
-      <span>HTML</span>
-      <span>CSS</span>
-      <span>C</span>
-      <span>C++</span>
-      <span>Python</span>
-      <span>GitHub</span>
-    </div>
-  </section>
-
-  <footer>
-    <p>Built with ❤️ and curiosity.</p>
-    <p>© 2026 My Portfolio</p>
   </footer>
-
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
-
